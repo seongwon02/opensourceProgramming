@@ -1,7 +1,8 @@
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Form
+from fastapi.responses import HTMLResponse, RedirectResponse
 
-app = FastAPI(title="나의 개발자 TIL 아카이브")
+app = FastAPI(title="오픈소스 프로그래밍 아카이브")
+tils = []
 
 # 홈 페이지 라우팅
 @app.get("/", response_class=HTMLResponse)
@@ -17,6 +18,10 @@ async def home():
     <body>
         <h1>오픈소스 프로그래밍 아카이브</h1>
         <p>오늘 수업에서 배운 내용들을 기록하는 공간입니다. (FastAPI 기반)</p>
+    
+        <hr>
+        <a href="/create"><button style="padding: 10px; margin-right: 10px; cursor: pointer;">학습내용 기록하기</button></a>
+        <a href="/list"><button style="padding: 10px; cursor: pointer;">작성한 기록 보기</button></a>
     </body>
     </html>
     """
@@ -47,7 +52,14 @@ async def create_page():
 
 @app.get("/list", response_class=HTMLResponse)
 async def list_page():
-    return """
+    list_html = ""
+    for i, til in enumerate(tils):
+        list_html += f'<li><a href="/til/{i}">{til["title"]}</a></li>\n'
+    
+    if not tils:
+        list_html = "<li>아직 작성된 글이 없습니다. 첫 글을 작성해보세요!</li>"
+
+    return f"""
     <!DOCTYPE html>
     <html lang="ko">
     <head>
@@ -57,30 +69,43 @@ async def list_page():
     <body>
         <h1>📚 내 글 목록</h1>
         <ul>
-            <li><a href="/til/0">첫 번째 TIL 테스트 글</a></li>
-            <li><a href="/til/1">두 번째 TIL 테스트 글</a></li>
+            {list_html}
         </ul>
         <br>
-        <a href="/home">홈으로 돌아가기</a>
+        <a href="/create">새 글 작성하기</a> | <a href="/home">홈으로 돌아가기</a>
     </body>
     </html>
     """
 
 @app.get("/til/{til_id}", response_class=HTMLResponse)
 async def detail_page(til_id: int):
+    # 만약 없는 번호의 글을 요청하면 에러를 보여줍니다.
+    if til_id < 0 or til_id >= len(tils):
+        return HTMLResponse("<h1>해당 글을 찾을 수 없습니다.</h1><br><a href='/list'>목록으로</a>", status_code=404)
+        
+    til = tils[til_id]
+    
     return f"""
     <!DOCTYPE html>
     <html lang="ko">
     <head>
         <meta charset="UTF-8">
-        <title>학습내용 상세 보기</title>
+        <title>{til["title"]}</title>
     </head>
     <body>
-        <h1>학습 내용 상세 보기</h1>
-        <h2>글 번호: {til_id}</h2>
-        <p>열심히 공부한 내용이 이곳에 표시됩니다.</p>
+        <h1>{til["title"]}</h1>
+        <p style="white-space: pre-wrap;">{til["content"]}</p>
         <br>
+        <hr>
         <a href="/list">목록으로 돌아가기</a>
     </body>
     </html>
     """
+    
+@app.post("/submit")
+async def submit_til(title: str = Form(...), content: str = Form(...)):
+    # 1. 넘어온 제목과 내용을 딕셔너리 형태로 리스트에 저장합니다.
+    tils.append({"title": title, "content": content})
+    
+    # 2. 저장이 끝나면 글 목록 페이지(/list)로 사용자를 강제로 이동시킵니다.
+    return RedirectResponse(url="/list", status_code=303)
