@@ -101,7 +101,11 @@ async def detail_page(til_id: int):
     """
     
 @app.post("/submit")
-async def submit_til(title: str = Form(...), content: str = Form(...)):   
+async def submit_til(title: str = Form(...), content: str = Form(...)):
+    # 제목이나 내용이 띄어쓰기만 포함되어 있으면 400 에러 반환
+    if not title.strip() or not content.strip():
+        raise HTTPException(status_code=400, detail="정상적인 입력이 아닙니다")
+    
     # 1. 넘어온 제목과 내용을 딕셔너리 형태로 리스트에 저장합니다.
     tils.append({"title": title, "content": content})
     
