@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>TIL 목록</title>
+</head>
+<body>
+    <h1>📚 내 글 목록</h1>
+    <ul>
+    {% if tils %}
+        {% for til in tils %}
+            <li><a href="/til/{{ loop.index0 }}">{{ til.title }}</a></li>
+        {% endfor %}
+    {% else %}
+        <li>아직 작성된 글이 없습니다. 첫 글을 작성해보세요!</li>
+    {% endif %}
+    </ul>
+    <br>
+    <a href="/create">새 글 작성하기</a> | <a href="/home">홈으로 돌아가기</a>
+</body>
+</html>
