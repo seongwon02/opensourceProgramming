@@ -19,7 +19,8 @@
       <script src="_static/translations.js?v=afa94a99"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="색인" href="genindex.html" />
-    <link rel="search" title="검색" href="search.html" /> 
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="prev" title="app" href="modules.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,16 +42,26 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">app package</a><ul>
-<li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#app-app-module">app.app module</a></li>
-<li><a class="reference internal" href="#module-app">Module contents</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">app</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">app package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-app.app">app.app module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#app.app.create_page"><code class="docutils literal notranslate"><span class="pre">create_page()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#app.app.detail_page"><code class="docutils literal notranslate"><span class="pre">detail_page()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#app.app.home"><code class="docutils literal notranslate"><span class="pre">home()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#app.app.list_page"><code class="docutils literal notranslate"><span class="pre">list_page()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#app.app.submit_til"><code class="docutils literal notranslate"><span class="pre">submit_til()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-app">Module contents</a></li>
 </ul>
 </li>
 </ul>
-</div>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -65,6 +76,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">app</a></li>
       <li class="breadcrumb-item active">app package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/app.rst.txt" rel="nofollow"> View page source</a>
@@ -80,8 +92,45 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
 </section>
-<section id="app-app-module">
-<h2>app.app module<a class="headerlink" href="#app-app-module" title="Link to this heading"></a></h2>
+<section id="module-app.app">
+<span id="app-app-module"></span><h2>app.app module<a class="headerlink" href="#module-app.app" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="app.app.create_page">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.app.</span></span><span class="sig-name descname"><span class="pre">create_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.app.create_page" title="Link to this definition"></a></dt>
+<dd><p>새로운 학습 내용(TIL)을 기록할 수 있는 폼(Form) 페이지를 반환합니다.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.app.detail_page">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.app.</span></span><span class="sig-name descname"><span class="pre">detail_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">til_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.app.detail_page" title="Link to this definition"></a></dt>
+<dd><p>고유 ID(<cite>til_id</cite>)를 기반으로 특정 학습 기록의 상세 내용을 반환합니다.
+- 유효하지 않은 ID 요청 시 <strong>404 에러</strong> 페이지를 렌더링합니다.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.app.home">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.app.</span></span><span class="sig-name descname"><span class="pre">home</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.app.home" title="Link to this definition"></a></dt>
+<dd><p>사용자에게 메인 홈 화면을 렌더링하여 반환합니다.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.app.list_page">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.app.</span></span><span class="sig-name descname"><span class="pre">list_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.app.list_page" title="Link to this definition"></a></dt>
+<dd><p>지금까지 작성된 모든 학습 기록의 목록을 렌더링합니다.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="app.app.submit_til">
+<span class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">app.app.</span></span><span class="sig-name descname"><span class="pre">submit_til</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Form(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Form(PydanticUndefined)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#app.app.submit_til" title="Link to this definition"></a></dt>
+<dd><p>새로운 학습 기록을 메모리(리스트)에 저장합니다.</p>
+<ul class="simple">
+<li><p><strong>title</strong>: 빈 문자열이나 공백만 입력할 수 없습니다.</p></li>
+<li><p><strong>content</strong>: 상세 내용을 반드시 입력해야 합니다.</p></li>
+<li><p><strong>에러</strong>: 공백만 입력될 경우 400 Bad Request를 반환합니다.</p></li>
+<li><p><strong>성공</strong>: 처리가 완료되면 글 목록 페이지(<cite>/list</cite>)로 303 리다이렉트 됩니다.</p></li>
+</ul>
+</dd></dl>
+
 </section>
 <section id="module-app">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-app" title="Link to this heading"></a></h2>
@@ -91,7 +140,9 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="app" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
